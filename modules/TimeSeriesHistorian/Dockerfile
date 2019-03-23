@@ -18,7 +18,7 @@ WORKDIR /app
 COPY --from=build-env /app/modules/TimeSeriesHistorian/out ./
 COPY --from=build-env /app/modules/TimeSeriesHistorian/data ./data
 
-RUN useradd -ms /bin/bash moduleuser
-USER moduleuser
+#RUN useradd -ms /bin/bash moduleuser
+#USER moduleuser
 
 ENTRYPOINT ["dotnet", "Dolittle.Edge.TimeSeriesHistorian.dll"]

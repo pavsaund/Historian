@@ -4,7 +4,7 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>netcoreapp2.1</TargetFramework>
-        <AssemblyName>Dolittle.Edge.TimeSeriesPrioritizer</AssemblyName>
+        <AssemblyName>Dolittle.Edge.TimeSeriesHistorian</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>

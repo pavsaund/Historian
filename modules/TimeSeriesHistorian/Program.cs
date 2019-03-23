@@ -6,6 +6,7 @@ using Dolittle.Edge.Modules.Booting;
 
 namespace Dolittle.Edge.TimeSeriesHistorian
 {
+
     class Program
     {
         static void Main(string[] args)
