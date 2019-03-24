@@ -19,17 +19,20 @@ namespace Dolittle.Edge.TimeSeriesHistorian
     public class StorageMessageHandler : ICanHandleMessages
     {
         readonly ISerializer _serializer;
-        private readonly ILogger _logger;
+        readonly ILogger _logger;
+        readonly IStorage _storage;
 
         /// <summary>
         /// Initializes a new instance ofr <see cref="StorageMessageHandler"/>
         /// </summary>
         /// <param name="serializer"><see cref="ISerializer">JSON serializer</see></param>
         /// <param name="logger"><see cref="ILogger"/> used for logging</param>
-        public StorageMessageHandler(ISerializer serializer, ILogger logger)
+        /// <param name="storage"><see cref="IStorage"/> for dealing with storage</param>
+        public StorageMessageHandler(ISerializer serializer, ILogger logger, IStorage storage)
         {
             _serializer = serializer;
             _logger = logger;
+            _storage = storage;
         }
 
         /// <inheritdoc/>
@@ -38,24 +41,14 @@ namespace Dolittle.Edge.TimeSeriesHistorian
         /// <inheritdoc/>
         public async Task<MessageResponse> Handle(Message message)
         {
-            _logger.Information($"Handle incoming message");
-            var messageBytes = message.GetBytes();
-            var messageString = Encoding.UTF8.GetString(messageBytes);
-            _logger.Information($"Event received '{messageString}'");
-            var dataPoint = _serializer.FromJson<TimeSeriesDataPoint>(messageString);
-            var minute = dataPoint.Timestamp / 60000;
-
             try
             {
-                var path = Path.Join(Directory.GetCurrentDirectory(), "data", message.ConnectionModuleId);
-                _logger.Information($"Using path '{path}'");
-
-                if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-
-                var file = Path.Join(path, $"{minute}.datapoints");
-                _logger.Information($"Append to file '{file}'");
-                await File.AppendAllTextAsync(file, $"{messageString}\n");
-
+                _logger.Information($"Handle incoming message");
+                var messageBytes = message.GetBytes();
+                var messageString = Encoding.UTF8.GetString(messageBytes);
+                _logger.Information($"Event received '{messageString}'");
+                var dataPoint = _serializer.FromJson<TimeSeriesDataPoint>(messageString);
+                await _storage.Append(message.ConnectionModuleId, dataPoint.Timestamp, messageString);
                 _logger.Information("Datapoint appended");
 
                 return MessageResponse.Completed;
