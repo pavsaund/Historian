@@ -25,10 +25,11 @@ namespace Dolittle.Edge.TimeSeriesHistorian
         }
 
         /// <inheritdoc/>
-        public async Task Append(string sourceOutput, long timestamp, string text)
+        public async Task Append(string sourceOutput, TimeSeriesId timeSeries, long timestamp, string text)
         {
             var minute = timestamp / 60000;
             var path = Path.Join(Directory.GetCurrentDirectory(), "data", sourceOutput);
+            path = Path.Join(path,timeSeries.ToString());
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
             _logger.Information($"Using path '{path}'");
 

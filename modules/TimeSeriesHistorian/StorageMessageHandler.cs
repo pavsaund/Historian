@@ -48,7 +48,7 @@ namespace Dolittle.Edge.TimeSeriesHistorian
                 var messageString = Encoding.UTF8.GetString(messageBytes);
                 _logger.Information($"Event received '{messageString}'");
                 var dataPoint = _serializer.FromJson<TimeSeriesDataPoint>(messageString);
-                await _storage.Append(message.ConnectionModuleId, dataPoint.Timestamp, messageString);
+                await _storage.Append(message.ConnectionModuleId, dataPoint.TimeSeriesId, dataPoint.Timestamp, messageString);
                 _logger.Information("Datapoint appended");
 
                 return MessageResponse.Completed;
