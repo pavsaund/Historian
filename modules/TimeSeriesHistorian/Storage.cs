@@ -4,7 +4,9 @@
  *--------------------------------------------------------------------------------------------*/
 using System.IO;
 using System.Threading.Tasks;
+using Dolittle.Edge.Modules;
 using Dolittle.Logging;
+using Dolittle.Serialization.Json;
 
 namespace Dolittle.Edge.TimeSeriesHistorian
 {
@@ -14,29 +16,34 @@ namespace Dolittle.Edge.TimeSeriesHistorian
     public class Storage : IStorage
     {
         readonly ILogger _logger;
+        private readonly ISerializer _serializer;
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of <see cref="Storage"/>
         /// </summary>
+        /// <param name="serializer"></param>
         /// <param name="logger"><see cref="ILogger"/> used for logging</param>
-        public Storage(ILogger logger)
+        public Storage(ISerializer serializer, ILogger logger)
         {
+            _serializer = serializer;
             _logger = logger;
         }
 
         /// <inheritdoc/>
-        public async Task Append(string sourceOutput, TimeSeriesId timeSeries, long timestamp, string text)
+        public async Task Append(DataPoint<object> dataPoint)
         {
-            var minute = timestamp / 60000;
-            var path = Path.Join(Directory.GetCurrentDirectory(), "data", sourceOutput);
-            path = Path.Join(path,timeSeries.ToString());
+            var minute = dataPoint.Timestamp / 60000;
+            var path = Path.Join(Directory.GetCurrentDirectory(), "data");
+            path = Path.Join(path,dataPoint.TimeSeries.ToString());
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
             _logger.Information($"Using path '{path}'");
 
             var file = Path.Join(path, $"{minute}.datapoints");
             _logger.Information($"Append to file '{file}'");
 
-            await File.AppendAllTextAsync(file, $"{text}\n");
+            var json = _serializer.ToJson(dataPoint);
+
+            await File.AppendAllTextAsync(file, $"{json}\n");
         }
     }
 }

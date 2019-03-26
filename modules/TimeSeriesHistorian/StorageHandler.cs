@@ -14,9 +14,9 @@ using Microsoft.Azure.Devices.Client;
 namespace Dolittle.Edge.TimeSeriesHistorian
 {
     /// <summary>
-    /// Represents a <see cref="ICanHandleMessages"/> for storing messages offline
+    /// Represents a <see cref="ICanHandleDataPoint{T}"/> for storing messages offline
     /// </summary>
-    public class StorageMessageHandler : ICanHandleMessages
+    public class StorageMessageHandler : ICanHandleDataPoint<object>
     {
         readonly ISerializer _serializer;
         readonly ILogger _logger;
@@ -39,25 +39,10 @@ namespace Dolittle.Edge.TimeSeriesHistorian
         public Input Input => "events";
 
         /// <inheritdoc/>
-        public async Task<MessageResponse> Handle(Message message)
+        public async Task Handle(DataPoint<object> dataPoint)
         {
-            try
-            {
-                _logger.Information($"Handle incoming message");
-                var messageBytes = message.GetBytes();
-                var messageString = Encoding.UTF8.GetString(messageBytes);
-                _logger.Information($"Event received '{messageString}'");
-                var dataPoint = _serializer.FromJson<TimeSeriesDataPoint>(messageString);
-                await _storage.Append(message.ConnectionModuleId, dataPoint.TimeSeriesId, dataPoint.Timestamp, messageString);
-                _logger.Information("Datapoint appended");
-
-                return MessageResponse.Completed;
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, $"Issues writing datapoint : '{ex.Message}'");
-                return MessageResponse.Abandoned;
-            }
+            await _storage.Append(dataPoint);
         }
+
     }
 }
