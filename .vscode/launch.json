@@ -26,7 +26,7 @@
           "quoteArgs": true
         },
         "sourceFileMap": {
-          "/app": "${workspaceFolder}/modules/TimeSeriesHistorian"
+          "/app": "${workspaceFolder}/modules/Historian"
         },
         "justMyCode": true
       },
@@ -34,9 +34,9 @@
         "name": "IdentityMapper Local Debug (.NET Core)",
         "type": "coreclr",
         "request": "launch",
-        "program": "${workspaceRoot}/modules/TimeSeriesHistorian/bin/Debug/netcoreapp2.1/Dolittle.Edge.TimeSeriesHistorian.dll",
+        "program": "${workspaceRoot}/modules/Historian/bin/Debug/netcoreapp2.1/Dolittle.TimeSeries.Historian.dll",
         "args": [],
-        "cwd": "${workspaceRoot}/modules/TimeSeriesHistorian",
+        "cwd": "${workspaceRoot}/modules/Historian",
         "internalConsoleOptions": "openOnSessionStart",
         "stopAtEntry": false,
         "console": "internalConsole",

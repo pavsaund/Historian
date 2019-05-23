@@ -4,11 +4,11 @@
  *--------------------------------------------------------------------------------------------*/
 using System.IO;
 using System.Threading.Tasks;
-using Dolittle.Edge.Modules;
+using Dolittle.TimeSeries.Modules;
 using Dolittle.Logging;
 using Dolittle.Serialization.Json;
 
-namespace Dolittle.Edge.TimeSeriesHistorian
+namespace Dolittle.TimeSeries.Historian
 {
     /// <summary>
     /// Represents an implementation <see cref="IStorage"/>

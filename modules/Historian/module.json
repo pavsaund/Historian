@@ -2,7 +2,7 @@
     "$schema-version": "0.0.1",
     "description": "",
     "image": {
-        "repository": "dolittle/edge-timeserieshistorian",
+        "repository": "dolittle/timeseries-historian",
         "tag": {
             "version": "1.1.2",
             "platforms": {

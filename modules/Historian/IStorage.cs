@@ -3,9 +3,9 @@
  *  Licensed under the MIT License. See LICENSE in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 using System.Threading.Tasks;
-using Dolittle.Edge.Modules;
+using Dolittle.TimeSeries.Modules;
 
-namespace Dolittle.Edge.TimeSeriesHistorian
+namespace Dolittle.TimeSeries.Historian
 {
     /// <summary>
     /// Defines the storage system

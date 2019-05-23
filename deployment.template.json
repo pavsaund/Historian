@@ -54,25 +54,25 @@
                     }
                 },
                 "modules": {
-                    "TimeSeriesHistorian": {
+                    "Historian": {
                         "version": "1.0",
                         "type": "docker",
                         "status": "running",
                         "restartPolicy": "always",
                         "settings": {
-                            "image": "${MODULES.TimeSeriesHistorian}",
+                            "image": "${MODULES.Historian}",
                             "createOptions": {
                                 "HostConfig": {}
                             }
                         }
                     },
-                    "TimeSeriesSimulator": {
+                    "Simulator": {
                         "version": "1.0",
                         "type": "docker",
                         "status": "running",
                         "restartPolicy": "always",
                         "settings": {
-                            "image": "dolittle/edge-timeseriessimulator:1.0.9-amd64",
+                            "image": "dolittle/edge-Simulator:1.0.9-amd64",
                             "createOptions": {
                                 "HostConfig": {
                                     "PortBindings": {
@@ -94,7 +94,7 @@
             "properties.desired": {
                 "schemaVersion": "1.0",
                 "routes": {
-                    "TimeSeriesSimulatorToTimeSeriesHistorian": "FROM /messages/modules/TimeSeriesSimulator/outputs/timeseries INTO BrokeredEndpoint(\"/modules/TimeSeriesHistorian/inputs/events\")"
+                    "SimulatorToHistorian": "FROM /messages/modules/Simulator/outputs/timeseries INTO BrokeredEndpoint(\"/modules/Historian/inputs/events\")"
                 },
                 "storeAndForwardConfiguration": {
                     "timeToLiveSecs": 7200

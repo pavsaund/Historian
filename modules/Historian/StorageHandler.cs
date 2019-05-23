@@ -6,12 +6,12 @@ using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using Dolittle.Edge.Modules;
+using Dolittle.TimeSeries.Modules;
 using Dolittle.Logging;
 using Dolittle.Serialization.Json;
 using Microsoft.Azure.Devices.Client;
 
-namespace Dolittle.Edge.TimeSeriesHistorian
+namespace Dolittle.TimeSeries.Historian
 {
     /// <summary>
     /// Represents a <see cref="ICanHandleDataPoint{T}"/> for storing messages offline
