@@ -1,7 +1,7 @@
 ---
 title: Configuration
 description: How to configure the Historian time series module
-keywords: TimeSeries, Identity Mapper, Configure
+keywords: TimeSeries, Historian, Configure
 author: einari
-weight: 4
+weight: 1
 ---
