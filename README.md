@@ -1,5 +1,7 @@
 # Time Series Historian
 
+[![Build Status](https://dolittle.visualstudio.com/Dolittle%20open-source%20repositories/_apis/build/status/dolittle-timeseries.Historian?branchName=master)](https://dolittle.visualstudio.com/Dolittle%20open-source%20repositories/_build/latest?definitionId=13&branchName=master)
+
 ## Cloning
 
 This repository has sub modules, clone it with:
